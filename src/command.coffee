@@ -327,7 +327,11 @@ else
 
     # --eval
     if options.eval
-      runMain input, js, jsAST, options.input ? (options.cli and 'cli' or 'stdin')
+      fname = if options.input
+        fs.realpathSync(options.input)
+      else
+        if options.cli then '<cli>' else '<stdin>'
+      runMain input, js, jsAST, fname
 
   # choose input source
 
